@@ -12,17 +12,28 @@ interface Props {
 
 const Container = styled.div`
   max-width: 430px;
-  margin: 10vh auto;
+  margin: 0 auto; // 개발끝나면 10vh -> 0으로 변경
   padding: 0;
   display: flex;
   flex-direction: column;
-  min-height: 70dvh;
+  height: 100dvh; // 개발끝나면 100vh로 변경
   background: #50220d;
+
+  @media (max-width: 768px) {
+    margin: 0;
+    width: 100%;
+  }
 `
 
 const Content = styled.main`
   flex: 1;
   padding: 16px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `
 
 export default function Layout({ children }: Props) {
