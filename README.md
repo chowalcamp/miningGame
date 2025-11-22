@@ -1,36 +1,155 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💎 Mining Game
 
-## Getting Started
+모바일 중심의 인터랙티브 보석 채굴 게임 웹 애플리케이션입니다. 5x5 그리드에서 돌을 깨며 숨겨진 보석을 발견하는 마인스위퍼 스타일의 캐주얼 게임입니다.
 
-First, run the development server:
+## 🎮 주요 기능
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### 게임 메커니즘
+
+- **5x5 그리드 보드**: 돌로 덮인 25개의 셀로 구성
+- **인터랙티브 플레이**: 돌을 클릭하면 크랙 애니메이션과 함께 제거
+- **보석 발견**: 4가지 타입의 보석(Ruby, Sapphire, Emerald, Diamond) 숨겨져 있음
+- **다양한 보석 크기**: 1x1부터 2x3까지 다양한 크기의 보석 배치
+- **점수 시스템**: 보석의 모든 영역을 노출하면 점수 획득 (면적 × 10점)
+- **자동 리셋**: 모든 보석 발견 시 새로운 게임 자동 시작
+
+### 부가 기능
+
+- **부스트(Boost)**: 게임 강화 아이템 시스템
+- **미션(Mission)**: 도전 과제 및 보상 시스템
+- **초대(Invite)**: 친구 초대 기능
+
+## 🛠 기술 스택
+
+### Core
+
+- **Next.js 14.2** - React 프레임워크 (App Router)
+- **TypeScript 5** - 정적 타입 체킹
+- **React 18** - UI 라이브러리
+
+### Styling
+
+- **Emotion** - CSS-in-JS 라이브러리
+- **Responsive Design** - 모바일 최적화 (max-width: 430px)
+
+### Libraries
+
+- **lucide-react** - 아이콘 라이브러리
+- **uuid** - 고유 식별자 생성
+
+## 📁 프로젝트 구조
+
+```
+src/
+├── app/                      # Next.js App Router
+│   ├── page.tsx             # 메인 게임 페이지
+│   ├── boost/               # 부스트 페이지
+│   ├── mission/             # 미션 페이지
+│   ├── invite/              # 초대 페이지
+│   ├── layout.tsx           # 루트 레이아웃
+│   └── globals.css          # 전역 스타일
+│
+├── components/
+│   ├── common/              # 공통 컴포넌트
+│   │   ├── cards/           # 재사용 가능한 카드 컴포넌트
+│   │   ├── gems/            # 보석 컴포넌트
+│   │   └── layout/          # 레이아웃 (Header, Footer)
+│   └── component/           # 페이지별 컴포넌트
+│       ├── gameBoard.tsx    # 핵심 게임 로직
+│       ├── userHeader.tsx   # 유저 헤더
+│       ├── boost/           # 부스트 관련 컴포넌트
+│       ├── mission/         # 미션 관련 컴포넌트
+│       └── invite/          # 초대 관련 컴포넌트
+│
+├── lib/
+│   └── boardUtils.ts        # 보드 생성 알고리즘
+│
+└── types/
+    └── game.d.ts            # TypeScript 타입 정의
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎯 핵심 기술 구현
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. 보드 생성 알고리즘
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 4가지 타입의 보석을 5x5 그리드에 겹치지 않게 랜덤 배치
+- 충돌 감지 알고리즘으로 보석 간 겹침 방지
+- 다양한 크기(1x1, 2x1, 1x2, 2x2, 2x3)의 보석 지원
 
-## Learn More
+### 2. 게임 상태 관리
 
-To learn more about Next.js, take a look at the following resources:
+- React Hooks를 활용한 복잡한 게임 상태 관리
+- 보드 상태, 보석 위치, 커버 상태, 발견된 보석 추적
+- 효율적인 상태 업데이트로 부드러운 게임 플레이
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. 애니메이션 시스템
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Emotion keyframes를 활용한 돌 파괴 애니메이션
+- 클릭 시 즉각적인 시각적 피드백
+- 부드러운 전환 효과로 향상된 UX
 
-## Deploy on Vercel
+### 4. 타입 안전성
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- TypeScript를 활용한 완전한 타입 정의
+- Gem, Cell, GemType 인터페이스로 타입 안전성 보장
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚀 시작하기
+
+### 설치
+
+```bash
+# 의존성 설치
+yarn install
+```
+
+### 개발 서버 실행
+
+```bash
+yarn dev
+```
+
+브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 게임을 플레이하세요.
+
+### 빌드
+
+```bash
+# 프로덕션 빌드
+yarn build
+
+# 프로덕션 서버 실행
+yarn start
+```
+
+## 🎨 디자인 특징
+
+- **모바일 우선 디자인**: 430px 최대 너비의 반응형 레이아웃
+- **다크 테마**: 광산 분위기의 갈색 계열 색상 (#50220d, #42210b)
+- **직관적인 UI**: 명확한 점수 표시, 숨겨진 보석 카운터
+- **부드러운 인터랙션**: 애니메이션 기반의 피드백
+
+## 📱 페이지 구성
+
+| 페이지    | 경로       | 설명                  |
+| --------- | ---------- | --------------------- |
+| 메인 게임 | `/`        | 보석 채굴 게임 플레이 |
+| 부스트    | `/boost`   | 게임 강화 아이템 관리 |
+| 미션      | `/mission` | 도전 과제 및 보상     |
+| 초대      | `/invite`  | 친구 초대 기능        |
+
+## 💡 향후 개선 계획
+
+- [ ] 곡괭이 소모 시스템 구현
+- [ ] 난이도 선택 기능 (보드 크기 조절)
+- [ ] 로컬 스토리지 기반 최고 점수 저장
+- [ ] 사운드 이펙트 추가
+- [ ] 부스트/미션/초대 페이지 상세 구현
+- [ ] 유닛 테스트 작성
+- [ ] 배포 및 라이브 데모
+
+## 📄 라이선스
+
+This project is private and for portfolio purposes.
+
+---
+
+**Made with ❤️ using Next.js and TypeScript**
